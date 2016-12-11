@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Formulaire cocher{% endblock %}
+
+
+{% block content %}
+
+	<h2>Formulaire cocher pour exclure des articles</h2>
+	<p>À la base il fallait taper "a2et2es1" sans les guillements pour exclure : l'age dont l'id est 2, le type_categorie dont l'id est 2 et le sex dont l'id est 1.</p>
+	<p>Le but maintenant c'est de cocher des cases pour les exlcure, c'est plus pratique et plus compréhensible ...</p>
+	
+	<form action="{% url "vetements.views.formulaire_cocher" %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" />
+	</form>
+	
+	{% if envoi %}
+	<p>Formulaire envoyé baby ! derniere_case --> {{ derniere_case }}</p>
+	{% endif %}
+
+{% endblock %}

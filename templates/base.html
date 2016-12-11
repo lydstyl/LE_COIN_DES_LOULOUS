@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html>
+	<head>
+        <meta charset="utf-8" />
+        {% load static %}
+        <!-- remarque : le script ci-dessous permet aux anciennes versions 
+		d'Internet Explorer (IE6, IE7, IE8) de reconnaitre les 
+		balises de structure-->
+        <!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+        <link rel="stylesheet" href="{% static 'css/lydstyl.css' %}" />
+        <link rel="icon" type="image/png" href="{% static 'images/baby.png' %}" />
+        <title>{% block title %}Bébé Roubaix{% endblock %}</title>
+    </head>
+
+	<!-- remarque : le script ci-dessous permet de changer la classe
+	de body en fonction de la version d'IE. On pourra alors y acceder
+	avec le css en faisant par exemple .ie7 footer-->
+    <!--[if IE 6 ]><body class="ie6 old_ie"><![endif]-->
+    <!--[if IE 7 ]><body class="ie7 old_ie"><![endif]-->
+    <!--[if IE 8 ]><body class="ie8"><![endif]-->
+    <!--[if IE 9 ]><body class="ie9"><![endif]-->
+    <!--[if !IE]><!--><body><!--<![endif]-->
+		<div id="page_entiere">
+			<header>
+				<div id="titre_principal">
+					<img id="doudou" src="{% static 'images/doudou1.png' %}" alt="Mon image doudou" />
+					<h1>Bébé Roubaix</h1>
+					<p><em>Vêtements, jouets et équipements pour votre bébé de 1 à 3 ans.</em></p>
+				</div>
+				
+				<nav>
+					{% block nav %}
+					<ul>
+						<li><a href="{% url "pages_article" %}">Accueil</a></li>
+						<li><a href="{% url "vetements.views.formulaire_exclure" %}">Filtrer</a></li>
+						<li><a href="{% url "contact" %}">Contact</a></li>
+					</ul>
+					{% endblock %}
+				</nav>
+			</header>
+			
+			<div id="banniere">
+			</div>
+			
+
+			
+			<section id=premiere_section>
+				
+				<article>
+					{% block content %}
+					<h2>Bienvenu sur le site Bébé Roubaix</h2>
+					<p>Nous esperons que vous trouverez de quoi combler de bonheur vos enfants.</p>
+					{% endblock %}
+				</article>
+						
+				<aside>
+					{% block aside %}
+					<h3>Zone d'information</h3>
+					<p>Ceci est une zone ou vous pourrez trouver des conseils et des informations utiles.</p>
+					{% endblock %}
+				</aside>
+				
+			</section>
+
+			<footer>
+				<p>&copy; Bébé Roubaix</p>
+			</footer>
+		</div>
+	</body>
+</html>

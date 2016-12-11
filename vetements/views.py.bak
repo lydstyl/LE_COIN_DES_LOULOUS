@@ -1,0 +1,30 @@
+from django.shortcuts import render, get_object_or_404 #, redirect
+from vetements.models import Article
+#from vetements.forms import MiniURLForm
+
+# Create your views here.
+def les_articles(request):
+	""" Une vue affichant toutes les redirections créées et leurs 
+	informations, triées par ordre descendant, de la redirection avec 
+	le plus d'accès vers celle en ayant le moins. """
+	
+	liste_article = Article.objects.order_by('-date')
+	nb_ref = len(liste_article)
+	
+	return render(request, 'vetements/les_articles.html', locals()) #{'liste_article': liste_article, 'nb_ref': nb_ref} 
+
+def detail(request, id):
+	article = get_object_or_404(Article, id=id)
+	return render(request, 'vetements/detail.html', locals())
+
+#def rediriged(request, code):
+#	""" Une vue qui prend comme paramètre dans l'URL le code et redirige 
+#	l'utilisateur vers l'URL longue. """
+#	ligne_selectionnee_de_table_MiniURL = MiniURL.objects.get(code=str(code))
+#	
+#	url = ligne_selectionnee_de_table_MiniURL.longue_url
+#	
+#	ligne_selectionnee_de_table_MiniURL.nb_acces += 1
+#	ligne_selectionnee_de_table_MiniURL.save()
+#	
+#	return redirect(url)

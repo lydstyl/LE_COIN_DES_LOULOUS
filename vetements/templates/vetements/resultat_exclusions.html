@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}resultat_exclusions{% endblock %}
+
+
+{% block content %}
+	<h2>Articles sans ceux exclus</h2>
+	{% for article in liste_article %}
+	<div class="article">
+		
+		<img class="image_article" src="{{ article.photo.url }}" alt="Image de l'article : {{ article.photo.url }}"/>
+		<h3>{{ article.titre|title }}</h3>
+		<p>Age : {{ article.age|lower }}.</p>
+		<p>Prix : {{ article.prix }} €.</p>
+		<p><a href="{% url "detail" article.id %}">Plus de détails sur cette <strong>référence {{ article.id }}</strong></a>.</p>
+	</div>
+	{% empty %}
+		<p>Aucun article trouvé.</p>
+	
+	{% endfor %}
+	<p><a href="#">Voir les autres articles</a></p>
+	
+	{# Mise en forme de la pagination ici #}
+	{% if is_paginated %}
+		<div class="pagination">
+			   {% if page_obj.has_previous %}
+				   <a href="?page={{ page_obj.previous_page_number }}">Précédente</a> —
+			   {% endif %}
+			   Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }} 
+			   {% if page_obj.has_next %}
+				  — <a href="?page={{ page_obj.next_page_number }}">Suivante</a>
+			   {% endif %}
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block aside %}
+	<h3>Conseils</h3>
+	<p>Vous pouvez partager le lien de cette page par "copier / coller".</p>
+{% endblock %}

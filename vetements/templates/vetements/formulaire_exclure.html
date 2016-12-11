@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Formulaire{% endblock %}
+
+
+{% block content %}
+	<h2><a href="{% url "filtre_age" "1" %}">Filtrer des articles par age</a></h2>
+	
+	<h2>Exclure des articles</h2>
+	<h3>Les codes d'exclusion</h3>
+	<p>
+		{% for cle, valeur in dico_id_exclusions.items %} 
+		{{ cle|capfirst }} --> <strong>{{ valeur }}</strong>.<br />
+		{% endfor %}
+	</p>
+	
+	<form action="{% url "vetements.views.formulaire_exclure" %}" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" />
+	</form>
+	
+	{% if envoi %}
+	<p><a href="{% url "vetements.views.resultat_exclusions" fin_url %}">Cliquez ici pour voir les articles sans ceux que vous avez exclus</a></p>
+	{% endif %}
+
+{% endblock %}
+
+
+{% block aside %}
+	<h3>Créez votre code d'exclusion personnalisé</h3>
+	<p>Tapez votre code d'exclusion. S'il y a plusieurs codes d'exclusion, séparez les avec le caractère 'e'. <strong>Exemple : taper "a1ea2es2"</strong> pour exclure les ages de "Naissance", "Naissance à 3 ans" et le sex "Masculin".</p>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Detail{% endblock %}
+
+
+{% block content %}
+	<h2>Detail de l'article : {{ article.titre }}</h2>
+
+
+	<div class="detail">
+		
+		<img class="image_article" src="{{ article.photo.url }}" alt="Image de l'article : {{ article.photo.url }}"/>
+		<p>Sex : {{ article.sex|lower }}.</p>
+		<p>Age : {{ article.age|lower }}.</p>
+		<p>Type : {{ article.type_categorie|lower }}.</p>
+		<p>Prix : {{ article.prix|lower }} €.</p>
+		<p>
+			<br/>
+			Description : 
+			<br/>{{ article.type_categorie|capfirst }} pour un bébé de {{ article.age|lower }}.
+			<br/>{{ article.presentation|capfirst }}
+		</p>
+		<p><em>Référence : {{ article.id }}</em>.</p>
+	</div>
+
+{% endblock %}
+
+{% block aside %}
+	<h3>Conseils</h3>
+	<P>Pour revenir à votre liste, utilisez le bouton <strong>"précédent"</strong> de votre navigateur.</P>
+	<p>Pour voir les autres articles, cliquez sur <strong>"ACCUEIL"</strong> ou <strong>"FILTRER"</strong> dans le menu.</p>
+{% endblock %}

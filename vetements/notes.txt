@@ -1,0 +1,41 @@
+# Reflexions pour les filtres avec cases à cocher
+
+
+#Obtenir une liste de donnée qu'on va appeler liste_cases_cochees --> il va falloir réfléchir comment faire le formulaire
+liste_cases_cochees = [('sex', '1'), ('sex', '2'), ..., ('type_categorie', '4')]
+
+# pour chaques type_filtre exemple les cases sex
+def retourner_conditions(type_filtre, valeur, conditions = []):
+	""" 
+	Retourne une liste de conditions en tuple 
+	exemple [('sex', 'mixte'), ('sex', 'masculin')] 
+	Cette liste peu être créée ou ajoutée à une liste existante
+	"""
+	condition = (type_filtre, valeur) #Exemple ('sex', 'mixte')
+	conditions.append(condition)
+	return conditions
+
+# créer les 3 listes de conditions
+conditions_sex = []
+conditions_age = []
+conditions_type_categorie = []
+for case in liste_cases_cochees:
+	if case[0] = 'sex':
+		conditions_sex = retourner_conditions('sex', case[1], conditions_sex) #case[1] vaut la l'id exemple '2'.
+	if case[0] = 'age':
+		conditions_age = retourner_conditions('age', case[1], conditions_sex)
+	if case[0] = 'type_categorie':
+		conditions_type_categorie = retourner_conditions('type_categorie', case[1], conditions_type_categorie)
+
+#exemple conditions_sex = [('sex', 'mixte'), ('sex', 'masculin')]
+objets_q = [Q(x) for x in conditions_sex]
+import operator
+liste_demandee_sex = Article.objects.filter(reduce(operator.or_, objets_q)) #>>> Article.objects.filter(objets_q[0] | objets_q[1] | objets_q[2])
+
+objets_q = [Q(x) for x in conditions_age]
+liste_demandee_age = Article.objects.filter(reduce(operator.or_, objets_q)) 
+
+objets_q = [Q(x) for x in conditions_type_categorie]
+liste_demandee_type_categorie = Article.objects.filter(reduce(operator.or_, objets_q))
+
+liste_demandee = liste_demandee_sex & liste_demandee_age & liste_demandee_type_categorie
